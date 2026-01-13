@@ -94,7 +94,8 @@ export async function createServer(): Promise<Express> {
   });
 
   // Serve static files (config page, avatars)
-  app.use('/static', express.static(path.join(__dirname, '../static')));
+  // Use process.cwd() for compatibility with tsx and compiled builds
+  app.use('/static', express.static(path.join(process.cwd(), 'static')));
 
   // Configuration page redirect
   app.get('/configure', (_req: Request, res: Response) => {
