@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  ultrathink:
+    build: .
+    image: stremio-ultrathink-ai
+    container_name: ultrathink
+    restart: unless-stopped
+    ports:
+      - "7000:7000"
+    volumes:
+      # Persist database across container restarts
+      - ./data:/app/data
+    environment:
+      - PORT=7000
+      # Change this to your server's LAN IP for Stremio TV access
+      - BASE_URL=http://localhost:7000
+      # Optional: Trakt.tv credentials for watch history
+      # - TRAKT_CLIENT_ID=your_trakt_client_id
+      # - TRAKT_CLIENT_SECRET=your_trakt_client_secret
+      # Optional: Google OAuth for Gemini subscription
+      # - GOOGLE_CLIENT_ID=your_google_client_id
+      # - GOOGLE_CLIENT_SECRET=your_google_client_secret
+      # Optional: TVDB for series metadata
+      # - TVDB_API_KEY=your_tvdb_api_key

@@ -1,0 +1,29 @@
+# Caddyfile for Sannsvar Stremio Addon
+# Domain: sannsvar.com
+
+sannsvar.com {
+    # Automatic HTTPS via Let's Encrypt
+
+    # Reverse proxy to Node.js app
+    reverse_proxy localhost:7001
+
+    # Enable compression
+    encode gzip
+
+    # Security headers
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+
+    # Logging
+    log {
+        output file /var/log/caddy/sannsvar.log
+    }
+}
+
+# Redirect www to non-www
+www.sannsvar.com {
+    redir https://sannsvar.com{uri} permanent
+}
